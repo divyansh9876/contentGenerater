@@ -186,6 +186,35 @@
 			]
 		},
 		{
+			"name": "Google Authentication",
+			"item": [
+				{
+					"name": "Get User Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{google_access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						},
+						"description": "To get your Google access token, you first need to authenticate with Google through your browser. Since this is an OAuth2 flow, you cannot complete it directly in Postman. Follow these steps:\n\n1. **Open this URL in your web browser**: `{{baseUrl}}/oauth2/authorization/google`. This will redirect you to Google to sign in and authorize the application.\n2. After you approve the authorization request, Google will redirect you back to the application, which will then redirect to `/api/user` and display your user information as a JSON response.\n3. **This endpoint is for testing after you have logged in through the browser.** To test this in Postman, you would need to manually acquire a session cookie from your browser after logging in and use it in the request headers. The 'google_access_token' is a placeholder and will not work automatically without further configuration of Postman's OAuth2 helper."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "System",
 			"item": [
 				{
@@ -214,6 +243,7 @@
 		{ "key": "linkedin_client_id", "value": "86wiv58zs4q9q5" },
 		{ "key": "linkedin_client_secret", "value": "YOUR_LINKEDIN_CLIENT_SECRET" },
 		{ "key": "linkedin_redirect_uri", "value": "http://localhost:8081/api/marketing/linkedin/callback" },
-		{ "key": "linkedin_access_token", "value": "" }
+		{ "key": "linkedin_access_token", "value": "" },
+		{ "key": "google_access_token", "value": "" }
 	]
 }
