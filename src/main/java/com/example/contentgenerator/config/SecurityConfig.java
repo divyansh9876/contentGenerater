@@ -1,5 +1,7 @@
 package com.example.contentgenerator.config;
 
+import com.example.contentgenerator.service.CustomOAuth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -20,6 +25,10 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
+                    .userInfoEndpoint(userInfoEndpoint ->
+                        userInfoEndpoint
+                            .userService(customOAuth2UserService)
+                    )
                     .defaultSuccessUrl("/api/user", true)
             );
         return http.build();
