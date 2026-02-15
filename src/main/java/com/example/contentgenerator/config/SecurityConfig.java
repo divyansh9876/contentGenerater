@@ -17,20 +17,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
-            .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests
-                    .requestMatchers("/", "/login**", "/error", "/webjars/**").permitAll()
-                    .anyRequest().authenticated()
+            // Disable CSRF for APIs
+            .csrf(csrf -> csrf.disable())
+
+            // Authorization Rules
+            .authorizeHttpRequests(auth -> auth
+                // Public endpoints
+                .requestMatchers(
+                        "/", 
+                        "/login**",
+                        "/oauth2/**",
+                        "/error",
+                        "/actuator/**",
+                        "/webjars/**",
+                        "/api/marketing/**",   // your AI API
+                        "/api/public/**"
+                ).permitAll()
+
+                // Protect only user info
+                .requestMatchers("/api/user").authenticated()
+
+                // Everything else optional (change later)
+                .anyRequest().permitAll()
             )
-            .oauth2Login(oauth2Login ->
-                oauth2Login
-                    .userInfoEndpoint(userInfoEndpoint ->
-                        userInfoEndpoint
-                            .userService(customOAuth2UserService)
-                    )
-                    .defaultSuccessUrl("/api/user", true)
+
+            // OAuth2 Login Config
+            .oauth2Login(oauth -> oauth
+                .userInfoEndpoint(userInfo -> 
+                    userInfo.userService(customOAuth2UserService)
+                )
+                .defaultSuccessUrl("/api/user", true)
             );
+
         return http.build();
     }
 }
