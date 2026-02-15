@@ -1,5 +1,7 @@
 package com.example.contentgenerator.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -10,15 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomOAuth2UserService.class);
+
     @Autowired
     private UserService userService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        logger.info("Processing user request: {}", userRequest);
         OAuth2User oauth2User = super.loadUser(userRequest);
         String email = oauth2User.getAttribute("email");
         String name = oauth2User.getAttribute("name");
         String provider = userRequest.getClientRegistration().getRegistrationId();
+        logger.info("User email: {}, name: {}, provider: {}", email, name, provider);
         userService.processOAuthPostLogin(email, name, provider);
         return oauth2User;
     }
