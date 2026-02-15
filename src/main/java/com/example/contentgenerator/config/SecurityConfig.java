@@ -20,11 +20,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(Customizer.withDefaults())
-            .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/", "/login**", "/error", "/webjars/**", "/hello", "/api/**").permitAll()
+                    .requestMatchers("/", "/login**", "/error", "/webjars/**").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2Login(oauth2Login ->
@@ -33,8 +31,9 @@ public class SecurityConfig {
                         userInfoEndpoint
                             .userService(customOAuth2UserService)
                     )
-                    .defaultSuccessUrl("/hello", true)
+                    .defaultSuccessUrl("/api/user", true)
             );
+
         return http.build();
     }
 }
