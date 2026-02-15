@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "a8e8c180-2c49-44a3-8b4e-3ad16698b64a",
+		"name": "AI Content Generator API",
+		"description": "Full collection for AI Content Generation and LinkedIn Integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Marketing",
+			"item": [
+				{
+					"name": "Generate Content (Immediate)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{linkedin_access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"businessName\": \"KL Tech Hub\",\n  \"industry\": \"Technology\",\n  \"tone\": \"Professional\",\n  \"platform\": \"linkedin\",\n  \"useCase\": \"Product Launch\",\n  \"contentType\": \"post\",\n  \"timezone\": \"Asia/Kuala_Lumpur\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/marketing/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"marketing",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Content (Immediate - Page)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{linkedin_access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"businessName\": \"KL Tech Hub\",\n  \"industry\": \"Technology\",\n  \"tone\": \"Professional\",\n  \"platform\": \"linkedin\",\n  \"useCase\": \"Product Launch\",\n  \"contentType\": \"post\",\n  \"timezone\": \"Asia/Kuala_Lumpur\",\n  \"postTo\": \"page\",\n  \"pageId\": \"YOUR_PAGE_ID\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/marketing/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"marketing",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Content (Scheduled)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{linkedin_access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"businessName\": \"KL Tech Hub\",\n  \"industry\": \"Technology\",\n  \"tone\": \"Professional\",\n  \"platform\": \"linkedin\",\n  \"useCase\": \"Product Launch\",\n  \"contentType\": \"post\",\n  \"timezone\": \"Asia/Kuala_Lumpur\",\n  \"schedule\": {\n    \"dateTime\": \"2026-02-10T10:00:00Z\",\n    \"frequency\": \"daily\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/marketing/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"marketing",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Content (Scheduled - Page)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{linkedin_access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"businessName\": \"KL Tech Hub\",\n  \"industry\": \"Technology\",\n  \"tone\": \"Professional\",\n  \"platform\": \"linkedin\",\n  \"useCase\": \"Product Launch\",\n  \"contentType\": \"post\",\n  \"timezone\": \"Asia/Kuala_Lumpur\",\n  \"schedule\": {\n    \"dateTime\": \"2026-02-10T10:00:00Z\",\n    \"frequency\": \"daily\",\n    \"postTo\": \"page\",\n    \"pageId\": \"YOUR_PAGE_ID\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/marketing/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"marketing",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LinkedIn Authentication",
+			"item": [
+				{
+					"name": "1. Authenticate with LinkedIn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/marketing/linkedin/auth",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"marketing",
+								"linkedin",
+								"auth"
+							]
+						},
+						"description": "To get your LinkedIn access token, follow these steps:\n\n1. **Open this URL in your web browser** (do not send from Postman). This will redirect you to LinkedIn to authorize the application.\n2. After you approve the authorization request, LinkedIn will redirect you back to the callback URL.\n3. The page will display a success message along with your access token.\n4. **Copy the access token** from the success message.\n5. Go to the Postman collection variables (or your active environment) and **paste the token into the `value` field for the `linkedin_access_token` variable**.\n\nYou can now run the 'Generate Content' requests."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{ "key": "baseUrl", "value": "http://localhost:8081" },
+		{ "key": "linkedin_client_id", "value": "86wiv58zs4q9q5" },
+		{ "key": "linkedin_client_secret", "value": "YOUR_LINKEDIN_CLIENT_SECRET" },
+		{ "key": "linkedin_redirect_uri", "value": "http://localhost:8081/api/marketing/linkedin/callback" },
+		{ "key": "linkedin_access_token", "value": "" }
+	]
+}
